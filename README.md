@@ -1,6 +1,14 @@
-# mac-bootstrap
+# Auspex
 
-One-command setup to deploy your AI service stack on a fresh Mac Mini.
+**One who reads the signs and prepares the ground. Bootstrap a fresh Mac with your AI service stack.**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![macOS](https://img.shields.io/badge/macOS-14.0%2B-blue.svg)]()
+[![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-M1%2B-black.svg)]()
+
+Auspex transforms a bare Mac — Mini, MacBook, or Studio — into a fully operational AI service hub. It installs dependencies, clones projects, configures secrets, and starts persistent services, all in three phases.
+
+> *In ancient Rome, the auspex read the signs before any great endeavor. Auspex reads your Mac and prepares the ground for deploying [Centurion](https://github.com/spacelobster88/centurion) fleets.*
 
 ## ⚠️ Disclaimer
 
@@ -23,17 +31,25 @@ Read each script carefully before running. Make sure you understand every step.
 | Item | Minimum | Recommended |
 |------|---------|-------------|
 | Chip | Apple Silicon (M1+) | M2 / M4 |
-| RAM | 16 GB | 16 GB+ (Claude CLI peaks at 6-10 GB per process) |
+| RAM | 16 GB | 32 GB+ (each Claude agent uses ~250 MB) |
 | Disk | 30 GB free | 100 GB+ (Ollama models, brew packages, project code) |
 | macOS | 14.0 (Sonoma)+ | Latest |
+| Mac type | Mac Mini, MacBook, Mac Studio, Mac Pro | Any Apple Silicon Mac |
 
-## Architecture
+## What Gets Deployed
 
 ```
-Ollama (port 11434)              ← Vector embedding service
-  └──▶ mini-claude-bot (port 8000)  ← Gateway + cron + memory
-         └──▶ telegram-claude-hero   ← Telegram entry point
-centurion (port 8100)             ← Agent orchestration engine (independent)
+┌─────────────────────────────────────────────────────┐
+│                    Your Mac                           │
+│                                                      │
+│  Ollama (11434)          ← Vector embeddings         │
+│    └─▶ mini-claude-bot (8000)  ← Claude gateway      │
+│          └─▶ telegram-claude-hero  ← Telegram bridge  │
+│                                                      │
+│  Centurion (8100)        ← Agent fleet orchestrator  │
+│                                                      │
+│  Harness Loop (.harness/) ← Project orchestrator     │
+└─────────────────────────────────────────────────────┘
 ```
 
 | Service | Stack | Port | Description |
@@ -62,8 +78,8 @@ These steps cannot be automated and must be done before running scripts:
 ### Phase 1: Install System Dependencies
 
 ```bash
-git clone https://github.com/spacelobster88/mac-bootstrap.git
-cd mac-bootstrap
+git clone https://github.com/spacelobster88/auspex.git
+cd auspex
 chmod +x *.sh
 ./install.sh
 ```
@@ -106,13 +122,13 @@ Stops all services and removes LaunchAgent configurations.
 ## Directory Structure
 
 ```
-mac-bootstrap/
+auspex/
 ├── README.md                 # This document
 ├── LICENSE                   # MIT
-├── install.sh                # System dependency installation
-├── setup.sh                  # Project configuration and service startup
-├── health-check.sh           # Service health verification
-├── uninstall.sh              # Service removal
+├── install.sh                # Phase 1: System dependencies
+├── setup.sh                  # Phase 2: Project config + service startup
+├── health-check.sh           # Phase 3: Service verification
+├── uninstall.sh              # Teardown
 ├── Brewfile                  # Homebrew dependency manifest
 ├── launchd/                  # LaunchAgent plist templates
 │   ├── com.eddie.ollama.plist.template
@@ -123,6 +139,17 @@ mac-bootstrap/
     ├── mini-claude-bot.env.example
     └── centurion.env.example
 ```
+
+## Part of the Centurion Ecosystem
+
+Auspex is the setup tool for the broader AI agent stack:
+
+| Project | Role | Link |
+|---------|------|------|
+| **Auspex** | Mac provisioning (you are here) | [GitHub](https://github.com/spacelobster88/auspex) |
+| **Centurion** | Fleet-level agent orchestration (100+ agents) | [GitHub](https://github.com/spacelobster88/centurion) |
+| **mini-claude-bot** | Claude gateway + memory + cron | [GitHub](https://github.com/spacelobster88/mini-claude-bot) |
+| **telegram-claude-hero** | Telegram bot bridge | [GitHub](https://github.com/spacelobster88/telegram-claude-hero) |
 
 ## Manual Steps Checklist
 

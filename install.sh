@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # ============================================================================
-# mac-bootstrap / install.sh
+# auspex / install.sh
 # Phase 1: Install system-level dependencies
 # ============================================================================
 

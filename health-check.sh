@@ -2,7 +2,7 @@
 set -uo pipefail
 
 # ============================================================================
-# mac-bootstrap / health-check.sh
+# auspex / health-check.sh
 # Phase 3: Verify all services are healthy
 # ============================================================================
 

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # ============================================================================
-# mac-bootstrap / setup.sh
+# auspex / setup.sh
 # Phase 2: Clone projects + build + configure secrets + install LaunchAgents
 # ============================================================================
 

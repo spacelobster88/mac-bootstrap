@@ -2,7 +2,7 @@
 set -uo pipefail
 
 # ============================================================================
-# mac-bootstrap / uninstall.sh
+# auspex / uninstall.sh
 # Stop and remove all LaunchAgent services
 # ============================================================================
 
