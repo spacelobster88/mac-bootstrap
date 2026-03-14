@@ -1,16 +1,18 @@
 # Auspex
 
-**One who reads the signs and prepares the ground. Bootstrap a fresh Mac with your AI service stack.**
+**One who reads the signs and prepares the ground. Bootstrap a fresh Mac with your AI agent service stack.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![macOS](https://img.shields.io/badge/macOS-14.0%2B-blue.svg)]()
 [![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-M1%2B-black.svg)]()
 
-Auspex transforms a bare Mac — Mini, MacBook, or Studio — into a fully operational AI service hub. It installs dependencies, clones projects, configures secrets, and starts persistent services, all in three phases.
+> *Before Rome's legions marched, before the Senate voted, the auspex read the signs -- the flight of birds, the state of the sky -- and declared the ground fit for action. Auspex does the same for your Mac: it reads the machine, installs every dependency, and prepares the ground so your AI services can march in formation from the first command.*
 
-> *In ancient Rome, the auspex read the signs before any great endeavor. Auspex reads your Mac and prepares the ground for deploying [Centurion](https://github.com/spacelobster88/centurion) fleets.*
+Auspex transforms a bare Mac -- Mini, MacBook, or Studio -- into a fully operational AI service hub. It installs dependencies, clones projects, configures secrets, and starts persistent services, all in three phases.
 
-## ⚠️ Disclaimer
+---
+
+## Disclaimer
 
 **This script installs system-level software, modifies LaunchAgents configuration, and writes files to your HOME directory.**
 
@@ -39,25 +41,30 @@ Read each script carefully before running. Make sure you understand every step.
 ## What Gets Deployed
 
 ```
-┌─────────────────────────────────────────────────────┐
-│                    Your Mac                           │
-│                                                      │
-│  Ollama (11434)          ← Vector embeddings         │
-│    └─▶ mini-claude-bot (8000)  ← Claude gateway      │
-│          └─▶ telegram-claude-hero  ← Telegram bridge  │
-│                                                      │
-│  Centurion (8100)        ← Agent fleet orchestrator  │
-│                                                      │
-│  Harness Loop (.harness/) ← Project orchestrator     │
-└─────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│                       Your Mac                           │
+│                                                          │
+│  Ollama (11434)              <- Vector embeddings        │
+│    └──> mini-claude-bot (8000)    <- Claude gateway      │
+│           ├──> telegram-claude-hero    <- Telegram bridge │
+│           └──> smart-email-responder   <- Email agent    │
+│                                                          │
+│  Centurion (8100)            <- Agent fleet orchestrator │
+│                                                          │
+│  Harness Loop (.harness/)    <- Project orchestrator     │
+└──────────────────────────────────────────────────────────┘
 ```
+
+### The Legion -- Services Bootstrapped by Auspex
 
 | Service | Stack | Port | Description |
 |---------|-------|------|-------------|
-| Ollama | Homebrew | 11434 | nomic-embed-text model, provides vector embeddings for mini-claude-bot |
-| mini-claude-bot | Python 3.13 / FastAPI | 8000 | Multi-session Claude gateway, cron scheduling, semantic memory, daily reports |
-| telegram-claude-hero | Go 1.25 | - | Telegram Bot bridge, forwards messages to mini-claude-bot |
-| centurion | Python 3.12+ / FastAPI | 8100 | AI Agent orchestration engine, manages multiple Claude CLI processes |
+| [Ollama](https://ollama.com/) | Homebrew | 11434 | nomic-embed-text model, provides vector embeddings for mini-claude-bot |
+| [mini-claude-bot](https://github.com/spacelobster88/mini-claude-bot) | Python 3.13 / FastAPI | 8000 | Multi-session Claude gateway, cron scheduling, semantic memory, daily reports |
+| [telegram-claude-hero](https://github.com/spacelobster88/telegram-claude-hero) | Go 1.25 | - | Telegram Bot bridge, forwards messages to mini-claude-bot |
+| [smart-email-responder](https://github.com/spacelobster88/smart-email-responder) | Python / FastAPI | - | AI-powered email drafting and response agent |
+| [centurion](https://github.com/spacelobster88/centurion) | Python 3.12+ / FastAPI | 8100 | AI Agent orchestration engine, manages multiple Claude CLI processes |
+| [harness-loop](https://github.com/spacelobster88/harness-loop) | Node.js | - | Project-level orchestrator, drives iterative development loops |
 
 ## Usage
 
@@ -65,7 +72,7 @@ Read each script carefully before running. Make sure you understand every step.
 
 These steps cannot be automated and must be done before running scripts:
 
-1. **macOS permissions** (System Settings → Privacy & Security):
+1. **macOS permissions** (System Settings -> Privacy & Security):
    - Grant Terminal.app or iTerm2: **Accessibility**
    - Grant Terminal.app or iTerm2: **Full Disk Access**
    - Grant Terminal.app or iTerm2: **Automation**
@@ -98,10 +105,10 @@ claude login
 ```
 
 The script will interactively guide you to:
-- Clone 3 project repos
-- Build each project (Python venv, Go build)
+- Clone project repos (mini-claude-bot, telegram-claude-hero, smart-email-responder, centurion, harness-loop)
+- Build each project (Python venv, Go build, npm install)
 - Enter Telegram Bot Token and other secrets
-- Install and start 4 LaunchAgent services
+- Install and start LaunchAgent services
 
 ### Phase 3: Verify
 
@@ -140,9 +147,9 @@ auspex/
     └── centurion.env.example
 ```
 
-## Part of the Centurion Ecosystem
+## The Centurion Ecosystem
 
-Auspex is the setup tool for the broader AI agent stack:
+Auspex is the groundwork layer -- the augur's preparation -- for the broader AI agent stack:
 
 | Project | Role | Link |
 |---------|------|------|
@@ -150,6 +157,8 @@ Auspex is the setup tool for the broader AI agent stack:
 | **Centurion** | Fleet-level agent orchestration (100+ agents) | [GitHub](https://github.com/spacelobster88/centurion) |
 | **mini-claude-bot** | Claude gateway + memory + cron | [GitHub](https://github.com/spacelobster88/mini-claude-bot) |
 | **telegram-claude-hero** | Telegram bot bridge | [GitHub](https://github.com/spacelobster88/telegram-claude-hero) |
+| **smart-email-responder** | AI email drafting agent | [GitHub](https://github.com/spacelobster88/smart-email-responder) |
+| **harness-loop** | Project-level development orchestrator | [GitHub](https://github.com/spacelobster88/harness-loop) |
 
 ## Manual Steps Checklist
 
@@ -159,7 +168,7 @@ The following require browser interaction or manual configuration. Scripts will 
 |------|-----------------|-------|
 | GitHub login | `gh auth login` | Required for cloning private repos |
 | Claude login | `claude login` | Requires Anthropic account, browser interaction |
-| macOS permissions | System Settings → Privacy & Security | Terminal/iTerm2 needs Accessibility + Full Disk Access + Automation |
+| macOS permissions | System Settings -> Privacy & Security | Terminal/iTerm2 needs Accessibility + Full Disk Access + Automation |
 | Telegram Token | @BotFather | setup.sh will prompt for input |
 | Gmail App Password | Google Account settings | Only needed for daily report emails |
 
