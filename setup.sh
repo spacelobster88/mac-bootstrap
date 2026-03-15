@@ -19,6 +19,7 @@ SERVICES=(
     "mini-claude-bot"
     "telegram-claude-hero"
     "centurion"
+    "harness-loop"
 )
 
 # ---------- Colors ----------
@@ -158,6 +159,30 @@ fi
 info "Installing dependencies..."
 .venv/bin/pip install -q -e ".[dev]"
 ok "centurion build complete"
+
+step "Installing harness-loop skill"
+
+HL_DIR="$PROJECTS_DIR/harness-loop"
+HL_SKILL="$HOME_DIR/.claude/skills/harness-loop"
+
+if [[ -L "$HL_SKILL" ]]; then
+    EXISTING=$(readlink "$HL_SKILL")
+    if [[ "$EXISTING" = "$HL_DIR" ]]; then
+        ok "harness-loop already installed at $HL_SKILL"
+    else
+        info "Updating harness-loop symlink: $EXISTING → $HL_DIR"
+        rm "$HL_SKILL"
+        ln -s "$HL_DIR" "$HL_SKILL"
+        ok "harness-loop updated"
+    fi
+elif [[ -d "$HL_SKILL" ]]; then
+    warn "harness-loop exists as directory (not symlink): $HL_SKILL"
+    warn "Remove it manually to switch to managed install: rm -rf $HL_SKILL"
+else
+    mkdir -p "$(dirname "$HL_SKILL")"
+    ln -s "$HL_DIR" "$HL_SKILL"
+    ok "harness-loop installed: $HL_SKILL → $HL_DIR"
+fi
 
 # ---------- Secrets configuration ----------
 step "Configuring secrets"
