@@ -126,17 +126,45 @@ Verifies all services are running correctly.
 
 Stops all services and removes LaunchAgent configurations.
 
+## Stack Versioning
+
+Auspex uses an umbrella manifest (`stack.json`) to pin compatible versions of all microservices. This ensures reproducible deployments -- every `setup.sh` run checks out the exact commits recorded in `stack.json` rather than pulling whatever happens to be on `main`.
+
+### How It Works
+
+- `stack.json` at the repo root lists every service with its GitHub repo, pinned commit SHA, version string, and dependencies.
+- `setup.sh` reads `stack.json` and checks out the pinned ref for each service.
+- To update a service after merging changes, run the bump script:
+
+```bash
+# Pin to a specific commit
+./scripts/bump-version.sh mini-claude-bot abc1234def5678
+
+# Pin to current main HEAD (fetched from GitHub)
+./scripts/bump-version.sh mini-claude-bot
+```
+
+- Commit and push the updated `stack.json`. The next `setup.sh` run on any machine will deploy the new version.
+- To roll back, revert the `stack.json` commit.
+
+### Stack Version
+
+The top-level `stack_version` field in `stack.json` tracks the overall stack release. Bump it when you cut a coordinated release across services.
+
 ## Directory Structure
 
 ```
 auspex/
 ├── README.md                 # This document
 ├── LICENSE                   # MIT
+├── stack.json                # Pinned service versions (the version manifest)
 ├── install.sh                # Phase 1: System dependencies
 ├── setup.sh                  # Phase 2: Project config + service startup
 ├── health-check.sh           # Phase 3: Service verification
 ├── uninstall.sh              # Teardown
 ├── Brewfile                  # Homebrew dependency manifest
+├── scripts/
+│   └── bump-version.sh       # Helper to update pinned versions
 ├── launchd/                  # LaunchAgent plist templates
 │   ├── com.eddie.ollama.plist.template
 │   ├── com.eddie.mini-claude-bot.plist.template
