@@ -1,42 +1,53 @@
 {
   "stack_version": "1.0.0",
-  "released": "2026-03-14",
+  "released": "2026-03-16",
   "description": "Pinned versions of all microservices in the Auspex stack. setup.sh reads this file to checkout exact commits, ensuring reproducible deployments.",
   "services": {
     "mini-claude-bot": {
       "repo": "spacelobster88/mini-claude-bot",
-      "ref": "13e44aae35f88131c9cab2b0569e7a02f729df8f",
-      "ref_type": "commit",
-      "version": "0.1.0",
-      "dependencies": ["ollama"]
+      "ref": "43315389ea2fbc8d737424ba4151b70434ab3c89",
+      "ref_type": "tag",
+      "version": "1.0.0",
+      "dependencies": [
+        "ollama"
+      ],
+      "tag": "v1.0.0"
     },
     "telegram-claude-hero": {
       "repo": "spacelobster88/telegram-claude-hero",
-      "ref": "586e066edd263ee587af2024c68941559a896875",
-      "ref_type": "commit",
-      "version": "0.1.0",
-      "dependencies": ["mini-claude-bot"]
+      "ref": "f1fa9e808d91ff9c8490d2b9210d82044ca21393",
+      "ref_type": "tag",
+      "version": "1.0.0",
+      "dependencies": [
+        "mini-claude-bot"
+      ],
+      "tag": "v1.0.0"
     },
     "centurion": {
       "repo": "spacelobster88/centurion",
-      "ref": "5367b78d7700002a359729231a66ee26836354f8",
-      "ref_type": "commit",
-      "version": "0.1.0",
-      "dependencies": ["mini-claude-bot"]
+      "ref": "6ba2db85885cf54acaa864d55c456deba07e32c5",
+      "ref_type": "tag",
+      "version": "1.0.0",
+      "dependencies": [
+        "mini-claude-bot"
+      ],
+      "tag": "v1.0.0"
     },
     "smart-email-responder": {
       "repo": "spacelobster88/smart-email-responder",
-      "ref": "69f7bd8e3f7873dd48da84cdaa23db332bb77850",
-      "ref_type": "commit",
-      "version": "0.1.0",
-      "dependencies": []
+      "ref": "b82dddfdde15e99848d83326a3cb78880b68b698",
+      "ref_type": "tag",
+      "version": "1.0.0",
+      "dependencies": [],
+      "tag": "v1.0.0"
     },
     "harness-loop": {
       "repo": "spacelobster88/harness-loop",
-      "ref": "ae5bec6f69e30efacc05a5e3a9b78a7e227cd474",
-      "ref_type": "commit",
-      "version": "0.1.0",
-      "dependencies": []
+      "ref": "cae348c3adb60034828dd44418a0f4aa62a8ae42",
+      "ref_type": "tag",
+      "version": "1.0.0",
+      "dependencies": [],
+      "tag": "v1.0.0"
     }
   }
 }
