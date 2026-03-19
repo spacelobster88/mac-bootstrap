@@ -3,8 +3,11 @@
 **One who reads the signs and prepares the ground. Bootstrap a fresh Mac with your AI agent service stack.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Latest: v1.1.0](https://img.shields.io/badge/Latest-v1.1.0-brightgreen.svg)](https://github.com/spacelobster88/auspex/releases/tag/v1.1.0)
 [![macOS](https://img.shields.io/badge/macOS-14.0%2B-blue.svg)]()
 [![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-M1%2B-black.svg)]()
+[![Services](https://img.shields.io/badge/Services-6-orange.svg)]()
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Opus%204.6-blueviolet.svg)]()
 
 > *Before Rome's legions marched, before the Senate voted, the auspex read the signs -- the flight of birds, the state of the sky -- and declared the ground fit for action. Auspex does the same for your Mac: it reads the machine, installs every dependency, and prepares the ground so your AI services can march in formation from the first command.*
 
@@ -215,6 +218,61 @@ scp old-mac:~/.telegram-claude-hero.json ~/
 # Claude config
 scp -r old-mac:~/.claude/ ~/
 ```
+
+## Release History
+
+### v1.1.0 (2026-03-18) — Reliability & Observability
+
+**Centurion**
+- Replaced fragile `vm_stat` parsing with `psutil` for accurate RAM estimation
+- Added compressor-aware memory pressure detection (30% → WARN, 50% → CRITICAL)
+- New `SessionRegistry` with parent-child relationship tracking
+- New `GET /closeable-sessions` endpoint + `recommended_actions` in health response
+- Added Hardware Engineer + Product Manager subagent roles to `CLAUDE.md`
+
+**mini-claude-bot**
+- Fixed harness-loop chain stall: self-blocking race condition (#5)
+- Fixed harness-loop chain stall: manual Resume overwriting active chain (#6)
+- Dashboard metrics migrated from Vercel Edge Config → GitHub Gist (rate limit fix)
+- Metrics push interval changed from 1 min → 5 min
+
+**telegram-claude-hero**
+- New `/resume` command — routes harness resume directly to background (avoids foreground marker loss)
+- Friendly "Chain is already running" message instead of raw rejection
+
+**Stack**
+| Service | Commit |
+|---------|--------|
+| mini-claude-bot | `29f6450` |
+| telegram-claude-hero | `e397ffb` |
+| centurion | `f944db0` |
+| smart-email-responder | `09c7438` |
+| harness-loop | `e81eb24` |
+
+---
+
+### v1.0.0 (2026-03-16) — First Stable Release
+
+The full Auspex stack operational end-to-end:
+- Multi-session Claude gateway with semantic memory and cron scheduling
+- Telegram bot bridge with streaming responses and image/voice/document support
+- Centurion agent fleet orchestration with K8s-inspired admission control
+- Harness-loop project orchestrator with parallel task execution and QA feedback loops
+- Smart email responder with AI-powered drafting
+- Daily financial intelligence reports (CN/EN) with PDF generation and email delivery
+- Vercel dashboard for real-time system monitoring
+- Stack snapshot and restore tooling
+
+**Stack**
+| Service | Commit |
+|---------|--------|
+| mini-claude-bot | `4331538` |
+| telegram-claude-hero | `f1fa9e8` |
+| centurion | `6ba2db8` |
+| smart-email-responder | `b82dddf` |
+| harness-loop | `cae348c` |
+
+---
 
 ## License
 
