@@ -6,7 +6,7 @@
 [![Latest: v1.1.1-auto-restart](https://img.shields.io/badge/Latest-v1.1.1--auto--restart-brightgreen.svg)](https://github.com/spacelobster88/auspex/releases/tag/v1.1.1-auto-restart)
 [![macOS](https://img.shields.io/badge/macOS-14.0%2B-blue.svg)]()
 [![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-M1%2B-black.svg)]()
-[![Services](https://img.shields.io/badge/Services-5-orange.svg)]()
+[![Services](https://img.shields.io/badge/Services-6-orange.svg)]()
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Opus%204.6-blueviolet.svg)]()
 
 > *Before Rome's legions marched, the auspex read the signs and declared the ground fit for action. Auspex does the same for your Mac: it reads the machine, installs every dependency, and prepares the ground so your AI services can march in formation from the first command.*
@@ -26,6 +26,7 @@ Three phases. One script per phase. Zero-to-running in under an hour.
 │          └─> telegram-claude-hero  <- Telegram bot  │
 │                                                     │
 │  Centurion (8100)         <- Agent fleet manager    │
+│  AROS Meta-Loop (8200)   <- Meta-cognition loop     │
 │  Harness Loop (.harness/) <- Project orchestrator   │
 └─────────────────────────────────────────────────────┘
 ```
@@ -36,6 +37,7 @@ Three phases. One script per phase. Zero-to-running in under an hour.
 | [mini-claude-bot](https://github.com/spacelobster88/mini-claude-bot) | Python 3.13 / FastAPI | 8000 | Multi-session Claude gateway, cron, semantic memory |
 | [telegram-claude-hero](https://github.com/spacelobster88/telegram-claude-hero) | Go 1.25 | - | Telegram bridge to mini-claude-bot |
 | [centurion](https://github.com/spacelobster88/centurion) | Python 3.12+ / FastAPI | 8100 | AI agent fleet orchestration engine |
+| [aros-meta-loop-python](https://github.com/AROS-Lab/aros-meta-loop-python) | Python 3.12+ / FastAPI | 8200 | AROS meta-cognition loop |
 | [harness-loop](https://github.com/spacelobster88/harness-loop) | Node.js | - | Iterative project development orchestrator |
 
 ---
@@ -145,6 +147,7 @@ scp -r old-mac:~/.claude/ ~/
 | [**Centurion**](https://github.com/spacelobster88/centurion) | Fleet-level agent orchestration |
 | [**mini-claude-bot**](https://github.com/spacelobster88/mini-claude-bot) | Claude gateway + memory + cron |
 | [**telegram-claude-hero**](https://github.com/spacelobster88/telegram-claude-hero) | Telegram bot bridge |
+| [**aros-meta-loop-python**](https://github.com/AROS-Lab/aros-meta-loop-python) | AROS meta-cognition loop |
 | [**harness-loop**](https://github.com/spacelobster88/harness-loop) | Project development orchestrator |
 
 ---

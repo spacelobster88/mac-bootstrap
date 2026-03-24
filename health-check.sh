@@ -99,6 +99,19 @@ else
 fi
 echo ""
 
+# ---------- aros-meta-loop ----------
+echo -e "${BLUE}[aros-meta-loop]${NC} (port 8200)"
+if curl -sf http://localhost:8200/docs &>/dev/null; then
+    pass "aros-meta-loop service running"
+else
+    if pgrep -f "aros_meta_loop" &>/dev/null; then
+        skip "aros-meta-loop process exists but HTTP not responding"
+    else
+        fail "aros-meta-loop service not running"
+    fi
+fi
+echo ""
+
 # ---------- Claude CLI ----------
 echo -e "${BLUE}[Claude CLI]${NC}"
 if command -v claude &>/dev/null; then
@@ -110,7 +123,7 @@ echo ""
 
 # ---------- LaunchAgents ----------
 echo -e "${BLUE}[LaunchAgents]${NC}"
-for label in com.eddie.ollama com.eddie.mini-claude-bot com.eddie.telegram-claude-hero com.eddie.centurion; do
+for label in com.eddie.ollama com.eddie.mini-claude-bot com.eddie.telegram-claude-hero com.eddie.centurion com.eddie.aros-meta-loop; do
     plist="$HOME/Library/LaunchAgents/${label}.plist"
     if [[ -f "$plist" ]]; then
         if launchctl list "$label" &>/dev/null 2>&1; then
@@ -137,6 +150,7 @@ else
     echo "    tail -50 /tmp/mini-claude-bot.log"
     echo "    tail -50 /tmp/telegram-claude-hero.log"
     echo "    tail -50 /tmp/centurion.log"
+    echo "    tail -50 /tmp/aros-meta-loop.log"
 fi
 echo "========================================================================"
 echo ""

@@ -20,6 +20,7 @@ SERVICES=(
     "telegram-claude-hero"
     "centurion"
     "harness-loop"
+    "aros-meta-loop-python"
 )
 
 # ---------- Colors ----------
@@ -106,14 +107,21 @@ mkdir -p "$PROJECTS_DIR"
 # ---------- Clone projects ----------
 step "Cloning projects"
 
+AROS_OWNER="AROS-Lab"
+
 for repo in "${SERVICES[@]}"; do
     repo_dir="$PROJECTS_DIR/$repo"
+    # Determine the GitHub owner for this repo
+    case "$repo" in
+        aros-meta-loop-python) owner="$AROS_OWNER" ;;
+        *) owner="$GH_OWNER" ;;
+    esac
     if [[ -d "$repo_dir/.git" ]]; then
         info "$repo already exists, pulling latest..."
         (cd "$repo_dir" && git pull --ff-only 2>/dev/null || warn "$repo git pull failed — may have local changes")
     else
-        info "Cloning $GH_OWNER/$repo..."
-        gh repo clone "$GH_OWNER/$repo" "$repo_dir"
+        info "Cloning $owner/$repo..."
+        gh repo clone "$owner/$repo" "$repo_dir"
     fi
     ok "$repo ✓"
 done
@@ -184,6 +192,19 @@ else
     ok "harness-loop installed: $HL_SKILL → $HL_DIR"
 fi
 
+step "Building aros-meta-loop-python"
+
+AML_DIR="$PROJECTS_DIR/aros-meta-loop-python"
+cd "$AML_DIR"
+
+if [[ ! -d .venv ]]; then
+    info "Creating Python venv (requires Python 3.12+)..."
+    python3.13 -m venv .venv 2>/dev/null || python3 -m venv .venv
+fi
+info "Installing dependencies..."
+.venv/bin/pip install -q -e ".[dev]"
+ok "aros-meta-loop-python build complete"
+
 # ---------- Secrets configuration ----------
 step "Configuring secrets"
 
@@ -242,6 +263,7 @@ PLIST_TEMPLATES=(
     "com.eddie.mini-claude-bot"
     "com.eddie.telegram-claude-hero"
     "com.eddie.centurion"
+    "com.eddie.aros-meta-loop"
 )
 
 for label in "${PLIST_TEMPLATES[@]}"; do
@@ -267,7 +289,7 @@ done
 # ---------- Start services (in order) ----------
 step "Starting services"
 
-info "Start order: Ollama → mini-claude-bot → telegram-claude-hero → centurion"
+info "Start order: Ollama → mini-claude-bot → telegram-claude-hero → centurion → aros-meta-loop"
 echo ""
 
 # 1. Ollama
@@ -324,6 +346,20 @@ if [[ -f "$CENT_PLIST" ]]; then
     done
 fi
 
+# 5. aros-meta-loop
+AML_PLIST="$LAUNCH_AGENTS_DIR/com.eddie.aros-meta-loop.plist"
+if [[ -f "$AML_PLIST" ]]; then
+    launchctl load "$AML_PLIST" 2>/dev/null || true
+    info "Waiting for aros-meta-loop to start..."
+    for i in $(seq 1 10); do
+        if curl -sf http://localhost:8200/docs &>/dev/null; then
+            ok "aros-meta-loop started (port 8200)"
+            break
+        fi
+        sleep 1
+    done
+fi
+
 # ---------- Claude MCP configuration ----------
 step "Configuring Claude MCP Server"
 
@@ -348,6 +384,7 @@ echo "    Ollama:               /opt/homebrew/var/log/ollama.log"
 echo "    mini-claude-bot:      /tmp/mini-claude-bot.log"
 echo "    telegram-claude-hero: /tmp/telegram-claude-hero.log"
 echo "    centurion:            /tmp/centurion.log"
+echo "    aros-meta-loop:       /tmp/aros-meta-loop.log"
 echo ""
 echo "  Manual steps (if not done yet):"
 echo "    - claude login       # Claude CLI login"

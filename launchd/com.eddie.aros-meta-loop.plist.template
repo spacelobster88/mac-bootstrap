@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.eddie.aros-meta-loop</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>__HOME__/Projects/aros-meta-loop-python/.venv/bin/python</string>
+        <string>-m</string>
+        <string>uvicorn</string>
+        <string>aros_meta_loop.main:app</string>
+        <string>--host</string>
+        <string>0.0.0.0</string>
+        <string>--port</string>
+        <string>8200</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>__HOME__/Projects/aros-meta-loop-python</string>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/aros-meta-loop.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/tmp/aros-meta-loop.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>__HOME__/.local/bin:__HOME__/Projects/aros-meta-loop-python/.venv/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+</dict>
+</plist>
