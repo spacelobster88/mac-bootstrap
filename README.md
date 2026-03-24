@@ -2,7 +2,7 @@
 
 **Bootstrap a fresh Mac into a fully operational AI agent hub.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Latest: v1.1.1-auto-restart](https://img.shields.io/badge/Latest-v1.1.1--auto--restart-brightgreen.svg)](https://github.com/spacelobster88/auspex/releases/tag/v1.1.1-auto-restart)
 [![macOS](https://img.shields.io/badge/macOS-14.0%2B-blue.svg)]()
 [![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-M1%2B-black.svg)]()
@@ -176,4 +176,4 @@ This script installs system-level software and modifies LaunchAgent configuratio
 
 ## License
 
-MIT
+Apache-2.0
