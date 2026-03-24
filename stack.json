@@ -1,62 +1,63 @@
 {
-  "stack_version": "1.1.1-auto-restart",
-  "released": "2026-03-19",
+  "stack_version": "1.2.0",
+  "released": "2026-03-24",
   "description": "Pinned versions of all microservices in the Auspex stack. setup.sh reads this file to checkout exact commits, ensuring reproducible deployments.",
   "services": {
     "mini-claude-bot": {
       "repo": "spacelobster88/mini-claude-bot",
-      "ref": "218996fb8618c807bdb28a0034d14fd2dd0eabc1",
+      "ref": "9f705addbbd43d0fa4358cc00aeea0fb51be4c20",
       "ref_type": "tag",
-      "version": "1.1.1-auto-restart",
+      "version": "1.2.0",
       "dependencies": [
         "ollama"
       ],
-      "tag": "v1.1.1-auto-restart"
+      "tag": "v1.2.0"
     },
     "telegram-claude-hero": {
       "repo": "spacelobster88/telegram-claude-hero",
-      "ref": "e397ffb3fa9183b7d2e8ba2c399972df771b32da",
+      "ref": "11b22522a3e4ba818eab9bf11171718e5f8ac494",
       "ref_type": "tag",
-      "version": "1.1.1-auto-restart",
+      "version": "1.2.0",
       "dependencies": [
         "mini-claude-bot"
       ],
-      "tag": "v1.1.1-auto-restart"
+      "tag": "v1.2.0"
     },
     "centurion": {
       "repo": "spacelobster88/centurion",
-      "ref": "bf96eda4cdd29839db798072a775066203173aba",
+      "ref": "a0032aee7397cb29d1e809c75af92571ed783839",
       "ref_type": "tag",
-      "version": "1.1.1-auto-restart",
+      "version": "1.2.0",
       "dependencies": [
         "mini-claude-bot"
       ],
-      "tag": "v1.1.1-auto-restart"
+      "tag": "v1.2.0"
     },
     "smart-email-responder": {
       "repo": "spacelobster88/smart-email-responder",
       "ref": "09c74382dec7f549e5f9caf699d312c2c6ca8364",
       "ref_type": "tag",
-      "version": "1.1.1-auto-restart",
+      "version": "1.2.0",
       "dependencies": [],
-      "tag": "v1.1.1-auto-restart"
+      "tag": "v1.2.0"
     },
     "harness-loop": {
       "repo": "spacelobster88/harness-loop",
-      "ref": "e81eb241c6f6505a0d30d28adf136d7bd0d7e5a6",
+      "ref": "8cf024f55e758742f48498431d315337dcbc2792",
       "ref_type": "tag",
-      "version": "1.1.1-auto-restart",
+      "version": "1.2.0",
       "dependencies": [],
-      "tag": "v1.1.1-auto-restart"
+      "tag": "v1.2.0"
     },
     "aros-meta-loop-python": {
       "repo": "AROS-Lab/aros-meta-loop-python",
-      "ref": "f64a51d3e562166c235b4f4b6d3416d4676dd705",
-      "ref_type": "commit",
-      "version": "0.1.0",
+      "ref": "87fdf3fe8af9bbbfb2288d28de7cde2620279f6c",
+      "ref_type": "tag",
+      "version": "1.2.0",
       "dependencies": [
         "mini-claude-bot"
-      ]
+      ],
+      "tag": "v1.2.0"
     }
   }
 }
